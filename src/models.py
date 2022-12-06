@@ -20,11 +20,27 @@ class User(Base):
 class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer , primary_key=True)
-    user_id = Column(Integer , ForeignKey('user.id'))
+    user_id = Column(Integer , ForeignKey('user.user_id'))
 
 class Media(Base):
     __tablename__ = 'media'
     id = Column(Integer , primary_key=True)
+    media_type = Column(Integer) 
+    ##Interger used as placeholder until I can figure out enum
+    url = Column(String(250))
+    post_id = Column(Integer)
+
+class Comment(Base): 
+    __tablename__ = 'comment'
+    id = Column(Integer , primary_key=True)
+    comment_text = Column(String(250))
+    author_id = Column(Integer)
+    post_id = Column(Integer)
+
+class Follower(Base):
+    __tablename__ = 'follower'
+    user_from_id = Column(Integer)
+    user_to_id = Column(Integer)
 
 
     def to_dict(self):
