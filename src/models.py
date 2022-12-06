@@ -12,10 +12,10 @@ class User(Base):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, primary_key=True)
-    username = Column(String(250))
-    firstname = Column(String(250))
-    lastname = Column(String(250))
-    email = Column(String(250) , unique=True)
+    username = Column(String(250) , nullable=False)
+    firstname = Column(String(250) , nullable=False)
+    lastname = Column(String(250) , nullable=False)
+    email = Column(String(250) , unique=True , nullable=False)
 
 class Post(Base):
     __tablename__ = 'post'
@@ -26,20 +26,19 @@ class Media(Base):
     __tablename__ = 'media'
     id = Column(Integer , primary_key=True)
     media_type = Column(Integer) 
-    ##Interger used as placeholder until I can figure out enum
-    url = Column(String(250))
+    url = Column(String(250)) ##string used as placeholder until I can figure out enum
     post_id = Column(Integer)
 
 class Comment(Base): 
     __tablename__ = 'comment'
     id = Column(Integer , primary_key=True)
     comment_text = Column(String(250))
-    author_id = Column(Integer)
-    post_id = Column(Integer)
+    author_id = Column(Integer , ForeignKey('user.author_id'))
+    post_id = Column(Integer , ForeignKey('post.post_id'))
 
 class Follower(Base):
     __tablename__ = 'follower'
-    user_from_id = Column(Integer)
+    user_from_id = Column(Integer , primary_key=True)
     user_to_id = Column(Integer)
 
 
